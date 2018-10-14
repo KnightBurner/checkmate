@@ -1,149 +1,151 @@
 class ChessPiece < ApplicationRecord
 
-  def is_obstructed? (board, current_position, new_position)
-    #Extracts current x and y positions
-    current_x = current_position[0]
-    current_y = current_position[1]
+# CHECKS WHICH DIRECTION
+  def is_vertical_move?(stop)
+    self.position_x == stop.position_x
+  end
 
-    #Extracts new x and y positions
-    new_x = new_position[0]
-    new_y = new_position[1]
+  def is_horizontal_move?(stop)
+    self.position_y == stop.position_y
+  end
 
-    # Determines which type of move is being made or invalid
+  def is_diagonal_move?(stop)
+    (self.position_x - stop.position_x).abs == (self.position_y - stop.position_y).abs
+  end
 
-    # Vertical move
-    if current_x == new_x
-      puts "This is a vertical move"
-      # Determines which direction the move is going
-      if current_y - new_y > 0
-        for y in new_y + 1..current_y - 1
-          # Returns true if a space is occupied
-          if board[y][current_x].nil? == false
-            puts "This move is obstructed"
-            return true
-          end
-        end
-        # Returns false if none of the spaces in between are occupied
-        puts "This move is not obstructed"
-        return false
-      elsif current_y - new_y < 0
-        for y in current_y + 1..new_y - 1
-          # Returns true if a space is occupied
-          if board[y][current_x].nil? == false
-            puts "This move is obstructed"
-            return true
-          end
-        end
-        # Returns false if none of the spaces in between are occupied
-        puts "This move is not obstructed"
-        return false
-      else
-        return false
-      end
-    # Horizontal move
-    elsif current_y == new_y
-      puts "This is a horizontal move"
-      # Determines which direction the move is going
-      if current_x - new_x > 0
-        for x in new_x + 1..current_x - 1
-          # Returns true if a space is occupied
-          if board[current_y][x].nil? == false
-            puts "This move is obstructed"
-            return true
-          end
-        end
-        # Returns false if none of the spaces in between are occupied
-        puts "This move is not obstructed"
-        return false
-      elsif current_x - new_x < 0
-        for x in current_x + 1..new_x - 1
-          # Returns true if a space is occupied
-          if board[current_y][x].nil? == false
-            puts "This move is obstructed"
-            return true
-          end
-        end
-        # Returns false if none of the spaces in between are occupied
-        puts "This move is not obstructed"
-        return false
-      else
-        return false
-      end  
-      
+# CHECKS WHICH VERTICAL MOVMENT
+  def is_moving_up?(stop)
+    self.position_y - stop.position_y < 0
+  end
 
-    # Diagonal move
-    elsif (current_x - new_x).abs == (current_y - new_y).abs
-      
-      # Determines which direction the move is going
+  def is_moving_down?(stop)
+    self.position_y - stop.position_y > 0
+  end
 
-      # Down to the left
-      if current_x - new_x > 0 && current_y - new_y > 0
-        y = new_y
-        for x in new_x + 1..current_x - 1
-          y += 1
-          # Returns true if a space is occupied
-          if board[y][x].nil? == false
-            puts "This move is obstructed"
-            return true
-          end
-        end
-        # Returns false if none of the spaces in between are occupied
-        puts "This move is not obstructed"
-        return false
+# CHECKS WHICH HORIZONTAL MOVEMENT
+  def is_moving_left?(stop)
+    self.position_x - stop.position_x > 0
+  end
 
-      # Down to the right
-      elsif current_x - new_x < 0 && current_y - new_y > 0
-        y = current_y
-        for x in current_x + 1..new_x - 1
-          y -= 1
-          # Returns true if a space is occupied
-          if board[y][x].nil? == false
-            puts "This move is obstructed"
-            return true
-          end
-        end
-        # Returns false if none of the spaces in between are occupied
-        puts "This move is not obstructed"
-        return false
+  def is_moving_right?(stop)
+    self.position_x - stop.position_x < 0
+  end
 
-      # Up to the left
-      elsif current_x - new_x > 0 && current_y - new_y < 0
-        y = new_y
-        for x in new_x + 1..current_x - 1
-          y -= 1
-          # Returns true if a space is occupied
-          if board[y][x].nil? == false
-            puts "This move is obstructed"
-            return true
-          end
-        end
-        # Returns false if none of the spaces in between are occupied
-        puts "This move is not obstructed"
-        return false
+# CHECKS WHICH DIAGONAL MOVEMENT
+  def is_moving_up_right?(stop)
+    is_moving_right?(stop) && is_moving_up?(stop)
+  end
 
-      # Up to the right
-      elsif current_x - new_x < 0 && current_y - new_y < 0
-        y = current_y
-        for x in current_x + 1..new_x - 1
-          y += 1
-          # Returns true if a space is occupied
-          if board[y][x].nil? == false
-            puts "This move is obstructed"
-            return true
-          end
-        end
-        # Returns false if none of the spaces in between are occupied
-        puts "This move is not obstructed"
-        return false
-          
-      else
-        return false
-      end
+  def is_moving_up_left?(stop)
+    is_moving_up?(stop) && is_moving_left?(stop)
+  end
 
-      puts "This is a diagonal move"
-    else
-      puts "Invalid input"
+  def is_moving_down_right?(stop)
+    is_moving_down?(stop) && is_moving_right?(stop)
+  end
+
+  def is_moving_down_left?(stop)
+    is_moving_down?(stop) && is_moving_left(stop)
+  end
+
+# CREATES AN ARRAY OF THE SPACES IN BETWEEN THE MOVEMENT
+  def spaces_between(start, stop)
+    (start...stop).to_a.drop(1)
+  end
+
+# DETECTS OBSTRUCTION BASED ON THE MOVE DIRECTION
+  def detect_vertical_up_obstruction(board, stop)
+    spaces_between(self.position_y, stop.position_y).find do |position_y|
+      board[position_y][self.position_x] != nil
     end
+  end
+
+  def detect_vertical_down_obstruction(board, stop)
+    spaces_between(stop.position_y, self.position_y).find do |position_y|
+      board[position_y][self.position_x] != nil
+    end
+  end
+
+  def detect_horizontal_left_obstruction(board, stop)
+    spaces_between(stop.position_x, self.position_x).find do |position_x|
+      board[self.position_y][position_x] != nil
+    end
+  end
+
+  def detect_horizontal_right_obstruction(board, stop)
+    spaces_between(self.position_x, stop.position_x).find do |position_x|
+      board[self.position_y][position_x] != nil
+    end
+  end
+
+  def detect_diagonal_up_right_obstruction(board, stop)
+    x = spaces_between(self.position_x, stop.position_x)
+    y = spaces_between(self.position_y, stop.position_y)
+    y.find do |position_y|
+      board[position_y][x[y.find_index(position_y)]] != nil
+    end
+  end
+
+  def detect_diagonal_up_left_obstruction(board, stop)
+    x = spaces_between(stop.position_x, self.position_y)
+    y = spaces_between(self.position_y, stop.position_y)
+    y.find do |position_y|
+      board[position_y][x[y.find_index(position_y)]] != nil
+    end
+  end
+
+  def detect_diagonal_down_right_obstruction(board, stop)
+    x = spaces_between(self.position_x, stop.position_x)
+    y = spaces_between(stop.position_y, self.position_y)
+    y.find do |position_y|
+      board[position_y][x[y.find_index(position_y)]] != nil
+    end
+  end
+
+  def detect_diagonal_down_left_obstruction(board, stop)
+    x = spaces_between(stop.position_x, self.position_x)
+    y = spaces_between(stop.position_y, self.position_y)
+    y.find do |position_y|
+      board[position_y][x[y.find_index(position_y)]]
+    end
+  end
+
+  def is_vertically_obstructed?(board, stop)
+    if is_vertical_move?(stop)
+      if is_moving_up?(stop)
+        return detect_vertical_up_obstruction(board, stop)
+      else
+        return detect_vertical_down_obstruction(board, stop)
+      end
+    end
+  end
+
+  def is_horizontally_obstructed?(board, stop)
+    if is_horizontal_move?(stop)
+      if is_moving_left?(stop)
+        return detect_horizontal_left_obstruction(board, stop)
+      else
+        return detect_horizontal_right_obstruction(board, stop)
+      end
+    end
+  end
+
+  def is_diagonally_obstructed?(board, stop)
+    if is_diagonal_move?(stop)
+      if is_moving_up_right?(stop)
+        return detect_diagonal_up_right_obstruction(board, stop)
+      elsif is_moving_up_left?(stop)
+        return detect_diagonal_up_left_obstruction(board, stop)
+      elsif is_moving_down_right?(stop)
+        return detect_diagonal_down_right_obstruction(board, stop)
+      else
+        return detect_diagonal_down_left_obstruction(board, stop)
+      end
+    end
+  end
+
+  def is_obstructed?(board, stop)
+    return is_vertically_obstructed?(board, stop) || is_horizontally_obstructed?(board, stop) || is_diagonally_obstructed?(board, stop)
   end
 
 end
