@@ -11,10 +11,10 @@ class GamesController < ApplicationController
    end
 
   def create 
+    @game = Game.create  
   end
 
   def show
+    @game = Game.show
   end
 end
-
-

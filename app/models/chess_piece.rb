@@ -1,5 +1,7 @@
 class ChessPiece < ApplicationRecord
 
+  belongs_to :game
+
 # CHECKS WHICH DIRECTION
   def is_vertical_move?(stop)
     self.position_x == stop.position_x
@@ -147,5 +149,4 @@ class ChessPiece < ApplicationRecord
   def is_obstructed?(board, stop)
     return is_vertically_obstructed?(board, stop) || is_horizontally_obstructed?(board, stop) || is_diagonally_obstructed?(board, stop)
   end
-
 end
