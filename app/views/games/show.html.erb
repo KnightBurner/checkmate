@@ -3,10 +3,16 @@
     <div class="row">
       <% 1..8.each do |square| %>
         <div class="square">
+          <% 
+          piece= @game.piece_at(square, row)
+          %>
+          <%= if piece != nil
+          %>
+          <%= piece.render_piece %>
+          <% end %>
       </div>
       <% end %>
   </div>
   <% end %>
 </div>
 <h1>Checkmate - Show Games</h1>
-
