@@ -13,6 +13,11 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.show
   end
+
+  def update
+    @game = Game.find(params[:id])
+    redirect_to game_path(@game)
+  end
+
 end

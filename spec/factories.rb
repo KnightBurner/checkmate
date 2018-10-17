@@ -1,6 +1,12 @@
 FactoryBot.define do
   factory :game do   
+    sequence :white_player_id do |n|
+      "#{n}"
+    end
+    player_turn "nil"
   end
+
+  
 
   factory :player do
   end
