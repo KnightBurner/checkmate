@@ -6,5 +6,6 @@
     <p> Game number: <%= game.id %> </p>
     <p> White Player ID: <%= game.white_player_id %> </p>
     <p> Black Player ID: <%= game.black_player_id %> </p>
+    <%= link_to "Join Game", game_path(game), method: :patch, class: 'btn btn-primary' %> 
   </div>
-  <% end %>
+<% end %>
