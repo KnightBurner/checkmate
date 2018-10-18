@@ -39,12 +39,8 @@ class Game < ApplicationRecord
     ChessPiece.create(type: King, game_id: id, position_x: 4, position_y: 7, color: 'black')
   end
   scope :available, -> { where(black_player_id: nil).or(where(white_player_id: nil)) }
-<<<<<<< HEAD
   
   def piece_at_(x, y)
     chess_pieces.where(position_x: x, position_y: y).first
   end
 end
-=======
-end
->>>>>>> d8f03fa06a3d4c1b14d3ec5fd623a8b143ea968f
