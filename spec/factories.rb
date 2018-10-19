@@ -1,12 +1,8 @@
 FactoryBot.define do
   factory :game do   
-    sequence :white_player_id do |n|
-      "#{n}"
-    end
-    player_turn "nil"
+    sequence(:white_player_id)
+    player_turn { nil }
   end
-
-  
 
   factory :player do
   end
@@ -15,10 +11,8 @@ FactoryBot.define do
   end
 
   factory :user do
-    sequence :email do |n|
-      "dummyEmail#{n}@gmail.com"
-    end
-    password {"secretPassword"}
-    password_confirmation {"secretPassword"}
+    sequence(:email) { |n| "dummyEmail#{n}@gmail.com" }
+    password { 'secretPassword' }
+    password_confirmation { 'secretPassword'  }
   end
 end
