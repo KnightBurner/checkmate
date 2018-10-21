@@ -10,7 +10,8 @@ class GamesController < ApplicationController
 #   end
 
   def create 
-    @game = Game.create  
+    @game = Game.create(game_params)
+
   end
 
   def show
@@ -24,7 +25,7 @@ class GamesController < ApplicationController
       @game.update_attributes( black_player_id: current_user.id)
       redirect_to game_path(@game)
     else 
-      # some code to handle failure case
+      redirect_to new_user_session_path, :alert => "Please sign in"
     end
   end
 
