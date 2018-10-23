@@ -143,6 +143,7 @@ class ChessPiece < ApplicationRecord
       end
     end
   end
+  
 # CHECKS IF THE PATH FROM THE CURRENT SPACE TO THE DESIRED SPACE IS OBSTRUCTED BY ANOTHER PIECE
   def is_obstructed?(board, stop)
     return is_vertically_obstructed?(board, stop) || is_horizontally_obstructed?(board, stop) || is_diagonally_obstructed?(board, stop)
