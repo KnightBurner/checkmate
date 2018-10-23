@@ -1,5 +1,7 @@
 class ChessPiece < ApplicationRecord
 
+  belongs_to :game
+
 # CHECKS WHICH DIRECTION
   def is_vertical_move?(stop)
     self.position_x == stop[0]

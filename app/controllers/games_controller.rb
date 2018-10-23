@@ -8,10 +8,11 @@ class GamesController < ApplicationController
 #     @game = Game.new
 #   end
 
-#   def create 
-#   end
+  def create 
+    @game = Game.create  
+  end
 
-#   def show
-#   end
- end
-
+  def show
+    @game = Game.show
+  end
+end
