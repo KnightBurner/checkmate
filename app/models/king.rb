@@ -5,12 +5,12 @@ class King < ChessPiece
   end
 
   def valid_move?(board, stop)
-    if self.is_vertical_move?(board, stop)
-      return move_one_space?(self.position_y, stop.position_y)
-    elsif self.is_horizontal_move?(board, stop)
-      return move_one_space?(self.position_x, stop.position_x)
-    else self.is_diagonal_move?(board, stop)
-      return move_one_space?(self.position_y, stop.position_y) && move_one_space?(self.position_x, stop.position_x)
+    if is_space_occupied?(board, stop)
+      if is_opponent(board, stop)
+        return move_one_space?(start, stop)
+      end
+    else
+      return move_one_space(start, stop)
     end
   end
 end

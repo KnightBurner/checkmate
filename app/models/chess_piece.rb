@@ -2,33 +2,33 @@ class ChessPiece < ApplicationRecord
 
 # CHECKS WHICH DIRECTION
   def is_vertical_move?(stop)
-    self.position_x == stop.position_x
+    self.position_x == stop[0]
   end
 
   def is_horizontal_move?(stop)
-    self.position_y == stop.position_y
+    self.position_y == stop[1]
   end
 
   def is_diagonal_move?(stop)
-    (self.position_x - stop.position_x).abs == (self.position_y - stop.position_y).abs
+    (self.position_x - stop[0]).abs == (self.position_y - stop[1]).abs
   end
 
 # CHECKS WHICH VERTICAL MOVMENT
   def is_moving_up?(stop)
-    self.position_y - stop.position_y < 0
+    self.position_y - stop[1] < 0
   end
 
   def is_moving_down?(stop)
-    self.position_y - stop.position_y > 0
+    self.position_y - stop[1] > 0
   end
 
 # CHECKS WHICH HORIZONTAL MOVEMENT
   def is_moving_left?(stop)
-    self.position_x - stop.position_x > 0
+    self.position_x - stop[0] > 0
   end
 
   def is_moving_right?(stop)
-    self.position_x - stop.position_x < 0
+    self.position_x - stop[0] < 0
   end
 
 # CHECKS WHICH DIAGONAL MOVEMENT
@@ -55,56 +55,56 @@ class ChessPiece < ApplicationRecord
 
 # DETECTS OBSTRUCTION BASED ON THE MOVE DIRECTION
   def detect_vertical_up_obstruction(board, stop)
-    spaces_between(self.position_y, stop.position_y).find do |position_y|
+    spaces_between(self.position_y, stop[1]).find do |position_y|
       board[position_y][self.position_x] != nil
     end
   end
 
   def detect_vertical_down_obstruction(board, stop)
-    spaces_between(stop.position_y, self.position_y).find do |position_y|
+    spaces_between(stop[1], self.position_y).find do |position_y|
       board[position_y][self.position_x] != nil
     end
   end
 
   def detect_horizontal_left_obstruction(board, stop)
-    spaces_between(stop.position_x, self.position_x).find do |position_x|
+    spaces_between(stop[0], self.position_x).find do |position_x|
       board[self.position_y][position_x] != nil
     end
   end
 
   def detect_horizontal_right_obstruction(board, stop)
-    spaces_between(self.position_x, stop.position_x).find do |position_x|
+    spaces_between(self.position_x, stop[0]).find do |position_x|
       board[self.position_y][position_x] != nil
     end
   end
 
   def detect_diagonal_up_right_obstruction(board, stop)
-    x = spaces_between(self.position_x, stop.position_x)
-    y = spaces_between(self.position_y, stop.position_y)
+    x = spaces_between(self.position_x, stop[0])
+    y = spaces_between(self.position_y, stop[1])
     y.find do |position_y|
       board[position_y][x[y.find_index(position_y)]] != nil
     end
   end
 
   def detect_diagonal_up_left_obstruction(board, stop)
-    x = spaces_between(stop.position_x, self.position_y)
-    y = spaces_between(self.position_y, stop.position_y)
+    x = spaces_between(stop[0], self.position_y)
+    y = spaces_between(self.position_y, stop[1])
     y.find do |position_y|
       board[position_y][x[y.find_index(position_y)]] != nil
     end
   end
 
   def detect_diagonal_down_right_obstruction(board, stop)
-    x = spaces_between(self.position_x, stop.position_x)
-    y = spaces_between(stop.position_y, self.position_y)
+    x = spaces_between(self.position_x, stop[0])
+    y = spaces_between(stop[1], self.position_y)
     y.find do |position_y|
       board[position_y][x[y.find_index(position_y)]] != nil
     end
   end
 
   def detect_diagonal_down_left_obstruction(board, stop)
-    x = spaces_between(stop.position_x, self.position_x)
-    y = spaces_between(stop.position_y, self.position_y)
+    x = spaces_between(stop[0], self.position_x)
+    y = spaces_between(stop[1], self.position_y)
     y.find do |position_y|
       board[position_y][x[y.find_index(position_y)]]
     end
@@ -143,9 +143,20 @@ class ChessPiece < ApplicationRecord
       end
     end
   end
-
+# CHECKS IF THE PATH FROM THE CURRENT SPACE TO THE DESIRED SPACE IS OBSTRUCTED BY ANOTHER PIECE
   def is_obstructed?(board, stop)
     return is_vertically_obstructed?(board, stop) || is_horizontally_obstructed?(board, stop) || is_diagonally_obstructed?(board, stop)
+  end
+
+# CHECKS TO SEE IF THE DESIRED SPACE IS OCCUPIED BY ANOTHER PIECE
+  def is_space_occupied?(board, stop)
+    return board[stop[1]][stop[0]] != nil
+  end
+
+# CHECKS TO SEE IF THE SELECTED PIECE IS THE OPPONENT
+  def is_opponent?(board, stop)
+    piece_id = board[stop[1]][stop[0]]
+    return ChessPiece.find(piece_id).color != self.color
   end
 
 end
