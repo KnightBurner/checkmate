@@ -238,7 +238,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap (~> 4.1.3)
   byebug
-  capybara
+  capybara (~> 3.9)
   coffee-rails (~> 4.2)
   devise
   factory_bot_rails

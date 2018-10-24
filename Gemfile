@@ -52,7 +52,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'capybara' 
 
 
 gem 'rubocop', require: false
@@ -60,6 +59,7 @@ gem 'rubocop', require: false
  
 
 group :development, :test do
+  gem 'capybara', '~> 3.9'
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
 end
