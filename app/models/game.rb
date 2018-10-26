@@ -42,6 +42,7 @@ class Game < ApplicationRecord
     ChessPiece.create(type: Queen, game_id: id, position_x: 3, position_y: 7, color: 'black')
     ChessPiece.create(type: King, game_id: id, position_x: 4, position_y: 7, color: 'black')
   end
+<<<<<<< HEAD
   
   def piece_at(x, y)
     chess_pieces.where(position_x: x, position_y: y).first
@@ -50,4 +51,24 @@ class Game < ApplicationRecord
       
 
   
+=======
+  scope :available, -> { where(black_player_id: nil).or(where(white_player_id: nil)) }
+  
+  
+  
+  def check?(color)
+    king = pieces.find_by(type: 'King', color: color)
+    opponents = pieces_remaining(color!)
+    
+    opponents.each do |piece|
+      if piece.valid_move?(king.x_position, king.y_position)
+        @piece_causing_check = piece_causing_check
+        return true
+      end
+    end
+    false
+  end
+    
+  end
+>>>>>>> added check? method
 end
