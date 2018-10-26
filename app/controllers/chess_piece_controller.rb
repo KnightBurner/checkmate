@@ -6,8 +6,12 @@ class ChessPieceController < ApplicationController
     
   end
 
+
   def update
+    @chesspiece.update_attributes(position_x, position_y)
+    redirect_to chesspiece_path(@chesspiece)
   end
+
 
 
 end

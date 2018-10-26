@@ -5,9 +5,9 @@ class GamesController < ApplicationController
     @games = Game.all
   end
 
-#   def new
-#     @game = Game.new
-#   end
+  def new
+    @game = Game.new
+  end
 
   def create 
     @game = Game.create(game_params)
