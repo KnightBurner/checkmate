@@ -12,14 +12,11 @@
                   
              
           <% end %>
-            <%= link_to '#', id: 'chess-piece' do %>
-              <% if @game.piece_at(square, row) %>
-                <%= @game.piece_at(square, row).display.html_safe %>
-                
-              <% end %>
-            <% end %>
+                 <% if @game.piece_at(square, row) %>
+                  <%= @game.piece_at(square, row).display.html_safe %>
+                  <% end %>
          </div>
       <% end %>
    </div>
   <% end %>
-</div> 
+</div>
