@@ -10,3 +10,4 @@ class Rook < ChessPiece
     self.is_vertical_move?(board, stop) || self.is_horizontal_move?(board, stop)
   end
 end
+end
