@@ -6,14 +6,7 @@ class Rook < ChessPiece
       return "&#9814;"
   end
    
-  
-  
- def valid_move?(board, stop)
-  if self.is_vertical_move?(board,stop)
-    return true
-  elsif self.is_horizontal_move?(board, stop)
-    return true
-  end
-end
+  def valid_move?(board, stop)
+    self.is_vertical_move?(board, stop) || self.is_horizontal_move?(board, stop)
   end
 end

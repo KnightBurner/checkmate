@@ -4,6 +4,6 @@ class Knight < ChessPiece
       return "&#9822;"
     else
       return "&#9816;"
+    end
   end
-end
 end
