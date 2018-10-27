@@ -1,1 +1,8 @@
-<h1>Piece Edit Page</h1>
+<h1> Edit Pieces Page </h1>
+
+<%= simple_form_for :chesspiece, :url => url_for(:action => 'update', :controller => 'chess_pieces'),
+    :method => 'put' do |f| %>
+  <%= f.input :position_x %>
+  <%= f.input :position_y %>
+  <%= f.submit 'Movie Piece', class: 'btn btn-primary' %>
+<% end %>

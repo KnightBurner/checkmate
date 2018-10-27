@@ -11,12 +11,14 @@ class ChessPiecesController < ApplicationController
   end
 
   def update
+    @chesspiece = ChessPiece.find_by(id: params[:id])
+    @game = @chesspiece.game
     @chesspiece.update_attributes(chesspiece_params)
-    redirect_to game_path(game)
+    redirect_to game_path(@chesspiece.game)
   end
 
   def edit
-    @chesspiece = ChessPiece.find(params[:id])
+    @chesspiece = ChessPiece.find_by(id: params[:id])
   end
 
   private
