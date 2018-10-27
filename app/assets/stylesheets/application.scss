@@ -13,3 +13,18 @@
  *= require_tree .
  *= require_self
  */
+
+.square {
+  width: 150px;
+  height: 150px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 75px;
+}
+.white {
+  background-color: white;
+}
+.black {
+  background-color: grey;
+} 
