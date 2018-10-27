@@ -8,20 +8,24 @@
         <% square_even = square % 2 == 0 %>
         <% if row == @chesspiece.position_y && square == @chesspiece.position_x %>
           <div class="square yellow" >
-        
-        
-          <% elsif row_even == square_even %>
+        <% elsif row_even == square_even %>
             <div class="square white">
-          <% else %>
+        <% else %>
             <div class="square black">
-          <% end %>
+        <% end %>
          
-          <% if @game.piece_at(square, row) == @chesspiece %>
-            <%= link_to edit_chess_piece_path(@chesspiece) do %>
-              <%= @game.piece_at(square, row).display.html_safe %>
-            <% end %>
+        <% if @game.piece_at(square, row) == @chesspiece %>
+          <%= link_to edit_chess_piece_path(@chesspiece) do %>
+            <%= @game.piece_at(square, row).display.html_safe %>
           <% end %>
+        <% else %>
+          <% if @game.piece_at(square, row) %>
+            <%= @game.piece_at(square, row).display.html_safe %>
+          <% end %>
+        <% end %>
+       
 
+        
           
        
          </div>
