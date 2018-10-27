@@ -2,24 +2,21 @@ class ChessPiece < ApplicationRecord
 
   belongs_to :game
 
-
+  # UPDATES POSITION IF IT'S EMPTY OR CAN BE CAPTURED OR RAISES ERROR IF IS OWN PLAYER
   def move_to!(stop)
-    if is_space_occupied?(board, stop)
-      update_attributes(self.position_x: stop[0], self.position_y: stop.[1])
-    elsif is_opponent?(board, stop)
-      capture_piece!(stop)
-      update_attributes(self.position_x: stop[0], self.position_y: stop[1])
-    else !is_opponent(board, stop)
-      raise ("you cannot capture your own piece")
+    if !is_space_occupied?(board, stop)
+          update_attributes(self.position_x: stop[0], self.position_y: stop.[1])
+    elsif is_space_occupied?(board, stop) && is_opponent?(board, stop)   
+          update_attributes(self.position_x: stop[0], self.position_y: stop.[1])
+          capture_piece!(board, stop)
+    else 
+      raise ArgumentError.new('you cannot capture your own player')
     end
   end
-
-
-  def capture_piece!(stop)
-    captured = stop
-    self.position_x: capture.position_x, self.position_y: capture.position_y
-    update_attributes (stop[0]: nil, stop.[1]: nil)
-
+ 
+  # DESTROYS A PIECE ON THE BOARD
+  def capture_piece!(board, stop)
+    board[stop[1]][stop[0]] == nil   
   end
 
   # CHECKS TO SEE IF THE DESIRED SPACE IS OCCUPIED BY ANOTHER PIECE
@@ -32,8 +29,6 @@ class ChessPiece < ApplicationRecord
     piece_id = board[stop[1]][stop[0]]
     return ChessPiece.find(piece_id).color != self.color
   end
-
-
 
 # CHECKS WHICH DIRECTION
   def is_vertical_move?(stop)
