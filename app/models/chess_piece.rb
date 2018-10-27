@@ -5,9 +5,9 @@ class ChessPiece < ApplicationRecord
   # UPDATES POSITION IF IT'S EMPTY OR CAN BE CAPTURED OR RAISES ERROR IF IS OWN PLAYER
   def move_to!(stop)
     if !is_space_occupied?(board, stop)
-          update_attributes(self.position_x = stop[0], self.position_y = stop.[1])
+          update_attributes(self.position_x = stop[0], self.position_y = stop[1])
     elsif is_space_occupied?(board, stop) && is_opponent?(board, stop)   
-          update_attributes(self.position_x = stop[0], self.position_y = stop.[1])
+          update_attributes(self.position_x = stop[0], self.position_y = stop[1])
           capture_piece!(board, stop)
     else 
       raise ArgumentError.new('you cannot capture your own player')
