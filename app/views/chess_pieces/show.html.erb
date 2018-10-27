@@ -6,7 +6,7 @@
       <% (0..7).each do |square| %>
         <% row_even = row % 2 == 0 %>
         <% square_even = square % 2 == 0 %>
-        <% if row == 1 && square == 1 %>
+        <% if row == @chesspiece.position_y && square == @chesspiece.position_x %>
           <div class="square yellow" >
         
         
