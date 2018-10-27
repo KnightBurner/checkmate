@@ -10,14 +10,18 @@ class ChessPiecesController < ApplicationController
     @game = @chesspiece.game
   end
 
-  # def update
-  #   @chesspiece.update_attributes(chesspiece_params)
-  #   redirect_to 
-  # end
+  def update
+    @chesspiece.update_attributes(chesspiece_params)
+    redirect_to game_path(game)
+  end
 
+  def edit
+    @chesspiece = ChessPiece.find(params[:id])
+  end
 
-  # private
+  private
 
-  # def chesspiece_params
-  # end
+  def chesspiece_params
+    params.require(:chesspiece).permit(:position_x, :position_y)
+  end
 end

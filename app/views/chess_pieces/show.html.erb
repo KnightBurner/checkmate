@@ -15,8 +15,11 @@
           <% else %>
             <div class="square black">
           <% end %>
-          <% if @game.piece_at(square, row) %>
-            <%= @game.piece_at(square, row).display.html_safe %>
+         
+          <% if @game.piece_at(square, row) == @chesspiece %>
+            <%= link_to edit_chess_piece_path(@chesspiece) do %>
+              <%= @game.piece_at(square, row).display.html_safe %>
+            <% end %>
           <% end %>
 
           
