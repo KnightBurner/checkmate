@@ -44,7 +44,7 @@ class Game < ApplicationRecord
   
   def check?(color)
     king = pieces.find_by(type: 'King', color: color)
-    opponents = pieces_remaining(color!)
+    opponents = pieces.find_by(color: color!)
     
     opponents.each do |piece|
       if piece.valid_move?(king.x_position, king.y_position)
