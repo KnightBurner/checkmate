@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
+
+describe '#move_to!' do
+  it 'determines if a move had been acoomplished'
+  game = FactoryBot.create(:game)
+
+
   describe "populate board all players" do
     it "determines if the populated board is complete" do
       game = FactoryBot.create(:game)

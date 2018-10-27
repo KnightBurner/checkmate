@@ -2,6 +2,39 @@ class ChessPiece < ApplicationRecord
 
   belongs_to :game
 
+
+  def move_to!(stop)
+    if is_space_occupied?(board, stop)
+      update_attributes(self.position_x: stop[0], self.position_y: stop.[1])
+    elsif is_opponent?(board, stop)
+      capture_piece!(stop)
+      update_attributes(self.position_x: stop[0], self.position_y: stop[1])
+    else !is_opponent(board, stop)
+      raise ("you cannot capture your own piece")
+    end
+  end
+
+
+  def capture_piece!(stop)
+    captured = stop
+    self.position_x: capture.position_x, self.position_y: capture.position_y
+    update_attributes (stop[0]: nil, stop.[1]: nil)
+
+  end
+
+  # CHECKS TO SEE IF THE DESIRED SPACE IS OCCUPIED BY ANOTHER PIECE
+  def is_space_occupied?(board, stop)
+    return board[stop[1]][stop[0]] != nil
+  end
+ 
+# CHECKS TO SEE IF THE SELECTED PIECE IS THE OPPONENT
+  def is_opponent?(board, stop)
+    piece_id = board[stop[1]][stop[0]]
+    return ChessPiece.find(piece_id).color != self.color
+  end
+
+
+
 # CHECKS WHICH DIRECTION
   def is_vertical_move?(stop)
     self.position_x == stop[0]
@@ -151,15 +184,6 @@ class ChessPiece < ApplicationRecord
     return is_vertically_obstructed?(board, stop) || is_horizontally_obstructed?(board, stop) || is_diagonally_obstructed?(board, stop)
   end
 
-# CHECKS TO SEE IF THE DESIRED SPACE IS OCCUPIED BY ANOTHER PIECE
-  def is_space_occupied?(board, stop)
-    return board[stop[1]][stop[0]] != nil
-  end
 
-# CHECKS TO SEE IF THE SELECTED PIECE IS THE OPPONENT
-  def is_opponent?(board, stop)
-    piece_id = board[stop[1]][stop[0]]
-    return ChessPiece.find(piece_id).color != self.color
-  end
 
 end
