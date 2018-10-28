@@ -11,4 +11,11 @@ include Warden::Test::Helpers
       click_button 'Join Game'
       expect(page).to have_content "Show Games"
     end
+
+    scenario 'joining a game' do
+      game = FactoryBot.create(:game)
+      visit '/games'
+      click_button 'Join Game'
+      expect(page).to have_content "You need to sign in or sign up before continuing"
+    end
   end

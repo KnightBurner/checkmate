@@ -11,4 +11,6 @@ RSpec.describe ChessPiecesController, type: :controller do
     end
   end
 
+  
+
 end

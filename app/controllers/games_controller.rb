@@ -16,7 +16,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by(id: params[:id])
-    
+
   end
 
   def update
@@ -26,7 +26,7 @@ class GamesController < ApplicationController
       @game.update_attributes( black_player_id: current_user.id)
       redirect_to game_path(@game)
     else
-      redirect_to new_user_session_path, :alert => "Please sign in"
+      redirect_to new_user_session_path
     end
   end
 
