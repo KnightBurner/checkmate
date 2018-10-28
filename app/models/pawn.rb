@@ -15,9 +15,8 @@ class Pawn < ChessPiece
       return (position_y - 1 == stop[1]) || (position_y - 2 == stop[1])
     elsif  !is_first_move? && !is_backwards_move?
       return position_y + 1 == stop[1]
-    else is_diagonal_move(stop) && 
-    # can only move diagonally if it's capturing an opponent
-      
+    else is_diagonal_move?(stop) && stop != nil
+    # can only move diagonally if it's capturing an opponent     
     end
   end
 end
