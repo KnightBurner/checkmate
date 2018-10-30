@@ -47,12 +47,12 @@ class Game < ApplicationRecord
   
   
   def check?(color)
-    king = pieces.find_by(type: 'King', color: color)
-    opponents = pieces.find_by(color: color!)
+    king = chess_pieces.find_by(type: 'King', color: color)
+    opponents = chess_pieces.find_by(color: color!)
     
     opponents.each do |piece|
-      if piece.valid_move?(king.x_position, king.y_position)
-        @piece_causing_check = piece_causing_check
+      if chess_piece.valid_move?(king.x_position, king.y_position)
+        @chess_piece_causing_check = chess_piece_causing_check
         return true
       end
     false
