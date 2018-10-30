@@ -63,4 +63,5 @@ class Game < ApplicationRecord
     
   end
 
+
 end
