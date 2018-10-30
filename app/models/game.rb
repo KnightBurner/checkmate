@@ -55,5 +55,4 @@ class Game < ApplicationRecord
     false
   end
     
-  end
 end
