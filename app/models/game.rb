@@ -1,4 +1,8 @@
 class Game < ApplicationRecord
+  scope :available, -> { where(black_player_id: nil) }
+  has_one :player, class_name: 'User', foreign_key: "black_player_id"
+  has_one :player, class_name: 'User', foreign_key: "white_player_id"
+
   has_many :chess_pieces
 
     after_create :populate_board!
@@ -55,4 +59,9 @@ class Game < ApplicationRecord
     false
   end
     
+end
+  
+  def piece_at(x, y)
+    chess_pieces.where(position_x: x, position_y: y).first
+  end
 end
