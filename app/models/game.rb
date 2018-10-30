@@ -55,7 +55,6 @@ class Game < ApplicationRecord
         @piece_causing_check = piece_causing_check
         return true
       end
-    end
     false
   end
     
