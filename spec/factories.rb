@@ -5,7 +5,9 @@ FactoryBot.define do
   factory :player do
   end
 
-  factory :chess_piece do 
+  factory :chess_piece do
+    position_x {0}
+    position_y {0} 
   end
 
   factory :user do
@@ -14,5 +16,16 @@ FactoryBot.define do
     end
     password {"secretPassword"}
     password_confirmation {"secretPassword"}
+  end
+
+  factory :board do
+    board = [[nil, nil, nil, nil, nil, nil, nil, nil],
+             [nil, nil, nil, nil, nil, nil, nil, nil],
+             [nil, nil, nil, nil, nil, nil, nil, nil],
+             [nil, nil, nil, nil, nil, nil, nil, nil],
+             [nil, nil, nil, nil, nil, nil, nil, nil],
+             [nil, nil, nil, nil, nil, nil, nil, nil],
+             [nil, nil, nil, nil, nil, nil, nil, nil],
+             [nil, nil, nil, nil, nil, nil, nil, nil]]
   end
 end
