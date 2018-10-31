@@ -52,7 +52,7 @@ class ChessPiece < ApplicationRecord
 
 # CREATES AN ARRAY OF THE SPACES IN BETWEEN THE MOVEMENT
   def spaces_between(start, stop)
-    (start...stop).to_a.drop(1)
+    return (start...stop).to_a.drop(1)
   end
 
 # DETECTS OBSTRUCTION BASED ON THE MOVE DIRECTION
@@ -115,34 +115,40 @@ class ChessPiece < ApplicationRecord
   def is_vertically_obstructed?(board, stop)
     if is_vertical_move?(stop)
       if is_moving_up?(stop)
-        return detect_vertical_up_obstruction(board, stop)
+        return detect_vertical_up_obstruction(board, stop) != nil
       else
-        return detect_vertical_down_obstruction(board, stop)
+        return detect_vertical_down_obstruction(board, stop) != nil
       end
+    else
+      return false
     end
   end
 
   def is_horizontally_obstructed?(board, stop)
     if is_horizontal_move?(stop)
       if is_moving_left?(stop)
-        return detect_horizontal_left_obstruction(board, stop)
+        return detect_horizontal_left_obstruction(board, stop) != nil
       else
-        return detect_horizontal_right_obstruction(board, stop)
+        return detect_horizontal_right_obstruction(board, stop) != nil
       end
+    else
+      return false
     end
   end
 
   def is_diagonally_obstructed?(board, stop)
     if is_diagonal_move?(stop)
       if is_moving_up_right?(stop)
-        return detect_diagonal_up_right_obstruction(board, stop)
+        return detect_diagonal_up_right_obstruction(board, stop) != nil
       elsif is_moving_up_left?(stop)
-        return detect_diagonal_up_left_obstruction(board, stop)
+        return detect_diagonal_up_left_obstruction(board, stop) != nil
       elsif is_moving_down_right?(stop)
-        return detect_diagonal_down_right_obstruction(board, stop)
+        return detect_diagonal_down_right_obstruction(board, stop) != nil
       else
-        return detect_diagonal_down_left_obstruction(board, stop)
+        return detect_diagonal_down_left_obstruction(board, stop) != nil
       end
+    else
+      return false
     end
   end
   
