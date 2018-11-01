@@ -1,8 +1,9 @@
 class Pawn < ChessPiece
 
- def valid_move?(board, stop)
-    if  (valid_move_by_two?(stop)) || (is_valid_direction?(start, stop) && spaces_between(start, stop) == 1 && !is_space_occupied(board, stop)) || (is_diagonal_move?(stop) && is_space_occupied?(board, stop) && is_opponent(board, stop))
-    end
+  def valid_move?(board, stop)
+    (valid_move_by_two?(stop)) || 
+    (is_valid_direction?(start, stop) && spaces_between(start, stop) == 1 && !is_space_occupied(board, stop)) || 
+    (is_diagonal_move?(stop) && is_space_occupied?(board, stop) && is_opponent(board, stop))
   end
  
   private
