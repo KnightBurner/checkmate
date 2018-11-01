@@ -6,75 +6,47 @@ RSpec.describe ChessPiece, type: :model do
   end
 
   describe ".is_vertical_move?" do
-<<<<<<< HEAD
     let(:piece) { ChessPiece.create(id: 5, position_x: 0, position_y: 0) }
 
     it 'should return true for a vertical move' do
-=======
-    it 'should return true for a vertical move' do
-      piece = ChessPiece.new(position_x: 0, position_y: 0)
->>>>>>> 137384d3ec2a31854b933f9273d55441dfc61069
       stop = [0, 4]
       expect(piece.is_vertical_move?(stop)).to eq true
     end
 
     it 'should return false for a non-vertical move' do
-<<<<<<< HEAD
-=======
-      piece = ChessPiece.new(position_x: 0, position_y: 0)
->>>>>>> 137384d3ec2a31854b933f9273d55441dfc61069
       stop = [4, 0]
       expect(piece.is_vertical_move?(stop)).to eq false
     end
   end
 
   describe ".is_horizontal_move?" do
-<<<<<<< HEAD
     let(:piece) { ChessPiece.create(position_x: 0, position_y: 0) }
 
     it 'should return true for a horizontal move' do
-=======
-    it 'should return true for a horizontal move' do
-      piece = ChessPiece.new(position_x: 0, position_y: 0)
->>>>>>> 137384d3ec2a31854b933f9273d55441dfc61069
       stop = [4, 0]
       expect(piece.is_horizontal_move?(stop)).to eq true
     end
 
     it 'should return false for a non-horizontal move' do
-<<<<<<< HEAD
-=======
-      piece = ChessPiece.new(position_x: 0, position_y: 0)
->>>>>>> 137384d3ec2a31854b933f9273d55441dfc61069
       stop = [0, 4]
       expect(piece.is_horizontal_move?(stop)).to eq false
     end
   end
 
   describe ".is_diagonal_move?" do
-<<<<<<< HEAD
     let(:piece) { ChessPiece.create(position_x: 0, position_y: 0) }
 
     it 'should return true for a diagonal move' do
-=======
-    it 'should return true for a diagonal move' do
-      piece = ChessPiece.new(position_x: 0, position_y: 0)
->>>>>>> 137384d3ec2a31854b933f9273d55441dfc61069
       stop = [4, 4]
       expect(piece.is_diagonal_move?(stop)).to eq true
     end
 
     it "should return false for a non-diagonal move" do
-<<<<<<< HEAD
-=======
-      piece = FactoryBot.create(:chess_piece)
->>>>>>> 137384d3ec2a31854b933f9273d55441dfc61069
       stop = [4, 5]
       expect(piece.is_diagonal_move?(stop)).to eq false
     end
   end
 
-<<<<<<< HEAD
   describe ".is_obstructed?" do
     let(:board) { [[nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
@@ -172,28 +144,27 @@ RSpec.describe ChessPiece, type: :model do
     end
   end
 
-  # describe ".is_opponent?" do
-  #   let(:board) { [[1, nil, nil, nil, nil, nil, nil, nil],
-  #                  [2, nil, nil, nil, nil, nil, nil, nil],
-  #                  [3, nil, nil, nil, nil, nil, nil, nil],
-  #                  [nil, nil, nil, nil, nil, nil, nil, nil],
-  #                  [nil, nil, nil, nil, nil, nil, nil, nil],
-  #                  [nil, nil, nil, nil, nil, nil, nil, nil],
-  #                  [nil, nil, nil, nil, nil, nil, nil, nil],
-  #                  [nil, nil, nil, nil, nil, nil, nil, nil]]}
-  #   let(:piece1) { ChessPiece.create(id: 1, color: 'black', position_x: 0, position_y: 0) }
-  #   let(:piece2) { ChessPiece.create(id: 2, color: 'black', position_x: 0, position_y: 1) }
-  #   let(:piece3) { ChessPiece.create(id: 3, color: 'white', position_x: 0, position_y: 2) }
+  describe ".is_opponent?" do
+    let(:board) { [[1, nil, nil, nil, nil, nil, nil, nil],
+                   [2, nil, nil, nil, nil, nil, nil, nil],
+                   [3, nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil, nil]]}
+    let(:piece1) { ChessPiece.create(id: 1, color: 'black', position_x: 0, position_y: 0) }
+    let(:piece2) { ChessPiece.create(id: 2, color: 'black', position_x: 0, position_y: 1) }
+    let(:piece3) { ChessPiece.create(id: 3, color: 'white', position_x: 0, position_y: 2) }
 
-  #   it 'should return true if the piece belongs to the opponent' do
-  #     stop = [0, 2]
-  #     # expect(piece1.is_opponent?(board, stop)).to eq true
-  #     # piece = ChessPiece.find_by_id(3)
-  #     expect(ChessPiece.find(3)).to eq piece3
-  #   end
+    it 'should return true if the piece belongs to the opponent' do
+      stop = [0, 2]
+      expect(piece1.is_opponent?(board, stop)).to eq true
+    end
 
   #   # it 'should return false if the piece belongs to the same team' do
   #   #   stop = [0, 1]
   #   #   expect(piece1.is_opponent?(board, stop)).to eq false
   #   # end
+  end
 end
