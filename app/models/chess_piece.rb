@@ -2,6 +2,14 @@ class ChessPiece < ApplicationRecord
 
   belongs_to :game
 
+  def is_white?
+    color == 'white'
+  end
+
+  def is_black?
+    color == 'black'
+  end
+
 # CHECKS WHICH DIRECTION
   def is_vertical_move?(stop)
     self.position_x == stop[0]
