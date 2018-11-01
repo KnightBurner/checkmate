@@ -8,11 +8,20 @@ class Knight < ChessPiece
     end
   end
 
+  def valid_move?(board, stop)
+    if up_two_right?(board, stop) || up_two_left?(board, stop)  || down_two_right?(board, stop) || down_two_left(board, stop)
+      || up_one_right?(board, stop) || up_one_left?(board, stop) || down_one_right?(board, stop) || down_one_left?(board, stop)
+    end
+  end
+
+  private
 
   def is_obstructed?
       nil
   end
 
+  def is_vertical?(board, stop)
+  end
 
   def up_two_right?(board, stop)
     # moves up 2 right 1
@@ -60,11 +69,5 @@ class Knight < ChessPiece
     # moves down 1 left 2
     (is_moving_down(stop) && (spaces_between(self.position_y, stop[1]) == 1)
       && (is_moving_left(stop) && spaces_between(self.position_x, stop[0]) == 2)
-  end
-
-  def is_valid_move?(board, stop)
-    if up_two_right?(board, stop) || up_two_left?(board, stop)  || down_two_right?(board, stop) || down_two_left(board, stop)
-      || up_one_right?(board, stop) || up_one_left?(board, stop) || down_one_right?(board, stop) || down_one_left?(board, stop)
-    end
   end
 end
