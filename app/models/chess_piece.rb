@@ -166,8 +166,5 @@ class ChessPiece < ApplicationRecord
   def is_opponent?(board, stop)
     piece_id = board[stop[1]][stop[0]]
     # return ChessPiece.find_by_id(piece_id).color != self.color
-    x = ChessPiece.find_by_id(piece_id)
-    return x
   end
-
 end
