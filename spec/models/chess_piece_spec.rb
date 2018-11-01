@@ -196,36 +196,4 @@ RSpec.describe ChessPiece, type: :model do
   #   #   stop = [0, 1]
   #   #   expect(piece1.is_opponent?(board, stop)).to eq false
   #   # end
-=======
-  # describe ".is_vertically_obstructed?" do
-  #   it 'should return true for an obstructed vertical move' do
-  #     board = FactoryBot.create(:board)
-  #     # piece = ChessPiece.new(position_x: 0, position_y: 0)
-  #     # board[0][0] = piece.id
-  #     # board[0][1] = 1
-  #     # stop = [0, 4]
-  #     expect(board[0][0]).to eq nil
-  #   end
-  # end
-
-  # it '.is_vertically_obstructed? should return false for a non-obstructed vertical move' do
-
-  # end
-
-  # it '.is_horizontally_obstructed? should return true for an obstructed horizontal move' do
-
-  # end
-
-  # it '.is_horizontally_obstructed? should return false for a non-obstructed horizontal move' do
-
-  # end
-
-  # it '.is_diagonally_obstructed? should return true for an obstructed diagonal move' do
-
-  # end
-
-  # it '.is_diagonally_obstructed? should return false for a non-obstructed diagonal move' do
-
->>>>>>> 137384d3ec2a31854b933f9273d55441dfc61069
-  # end
 end
