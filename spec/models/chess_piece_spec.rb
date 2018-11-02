@@ -145,26 +145,33 @@ RSpec.describe ChessPiece, type: :model do
   end
 
   describe ".is_opponent?" do
-    let(:board) { [[1, nil, nil, nil, nil, nil, nil, nil],
-                   [2, nil, nil, nil, nil, nil, nil, nil],
-                   [3, nil, nil, nil, nil, nil, nil, nil],
+    let(:game) { Game.create() }
+    let(:board) { [[nil, nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil]]}
-    let(:piece1) { ChessPiece.create(id: 1, color: 'black', position_x: 0, position_y: 0) }
-    let(:piece2) { ChessPiece.create(id: 2, color: 'black', position_x: 0, position_y: 1) }
-    let(:piece3) { ChessPiece.create(id: 3, color: 'white', position_x: 0, position_y: 2) }
 
     it 'should return true if the piece belongs to the opponent' do
-      stop = [0, 2]
-      expect(piece1.is_opponent?(board, stop)).to eq true
+      game_id = game.id
+      stop = [0, 6]
+      white_pawn = Pawn.select { |x| x.color == 'white' && x.game_id == game.id }
+      black_pawn = Pawn.select { |x| x.color == 'black' && x.game_id == game.id }
+      board[white_pawn[0].position_y][white_pawn[0].position_x] = white_pawn[0].id
+      board[black_pawn[0].position_y][black_pawn[0].position_x] = black_pawn[0].id
+      expect(white_pawn[0].is_opponent?(board, stop)).to eq true
     end
 
-  #   # it 'should return false if the piece belongs to the same team' do
-  #   #   stop = [0, 1]
-  #   #   expect(piece1.is_opponent?(board, stop)).to eq false
-  #   # end
+    it 'should return false if the piece belongs to the same team' do
+      game_id = game.id
+      stop = [1, 1]
+      white_pawn = Pawn.select { |x| x.color == 'white' && x.game_id == game.id}
+      board[white_pawn[0].position_y][white_pawn[0].position_x] = white_pawn[0].id
+      board[white_pawn[1].position_y][white_pawn[1].position_x] = white_pawn[1].id
+      expect(white_pawn[0].is_opponent?(board, stop)).to eq false
+    end
   end
 end

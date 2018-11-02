@@ -164,7 +164,7 @@ class ChessPiece < ApplicationRecord
 
 # CHECKS TO SEE IF THE SELECTED PIECE IS THE OPPONENT
   def is_opponent?(board, stop)
-    piece_id = board[stop[1]][stop[0]]
-    # return ChessPiece.find_by_id(piece_id).color != self.color
+    occupied_space_id = board[stop[1]][stop[0]]
+    return ChessPiece.find(occupied_space_id).color != self.color
   end
 end
