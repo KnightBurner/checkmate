@@ -55,7 +55,7 @@ RSpec.describe ChessPiece, type: :model do
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
-                   [nil, nil, nil, nil, nil, nil, nil, nil]]}
+                   [nil, nil, nil, nil, nil, nil, nil, nil]] }
     let(:piece1) { ChessPiece.create(id: 1, position_x: 0, position_y: 0) }
     let(:piece2) { ChessPiece.create(id: 2, position_x: 0, position_y: 2) }
     let(:stop) { [0, 4] }
@@ -80,7 +80,7 @@ RSpec.describe ChessPiece, type: :model do
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
-                   [nil, nil, nil, nil, nil, nil, nil, nil]]}
+                   [nil, nil, nil, nil, nil, nil, nil, nil]] }
     let(:piece1) { ChessPiece.create(id: 1, position_x: 0, position_y: 0) }
     let(:piece2) { ChessPiece.create(id: 2, position_x: 2, position_y: 0) }
     let(:stop) { [4, 0] }
@@ -105,7 +105,7 @@ RSpec.describe ChessPiece, type: :model do
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
-                   [nil, nil, nil, nil, nil, nil, nil, nil]]}
+                   [nil, nil, nil, nil, nil, nil, nil, nil]] }
     let(:piece1) { ChessPiece.create(id: 1, position_x: 0, position_y: 0) }
     let(:piece2) { ChessPiece.create(id: 2, position_x: 2, position_y: 2) }
     let(:stop) { [4, 4] }
@@ -130,7 +130,7 @@ RSpec.describe ChessPiece, type: :model do
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
-                   [nil, nil, nil, nil, nil, nil, nil, nil]]}
+                   [nil, nil, nil, nil, nil, nil, nil, nil]] }
     let(:piece) { ChessPiece.create(id: 1, position_x: 0, position_y: 0) }
 
     it 'should return true for an occupied space' do
@@ -153,7 +153,7 @@ RSpec.describe ChessPiece, type: :model do
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil, nil],
-                   [nil, nil, nil, nil, nil, nil, nil, nil]]}
+                   [nil, nil, nil, nil, nil, nil, nil, nil]] }
 
     it 'should return true if the piece belongs to the opponent' do
       game_id = game.id
