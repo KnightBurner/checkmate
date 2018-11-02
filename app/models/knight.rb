@@ -21,6 +21,6 @@ class Knight < ChessPiece
 
   # moves 2 spaces vertically and 1 space horizontally
   def is_vertical_move?(board, stop)
-    (position_x - stop[0]).abs == 2 && (position_y - stop[1]).abs == 1
+    (position_y - stop[1]).abs == 2 && (position_x - stop[0]).abs == 1
   end  
 end
