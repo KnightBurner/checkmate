@@ -9,13 +9,15 @@
           <% if row_even == square_even %>
             <div class="square white">
               <% else %>
-                <div class="square black">
-                  
-             
+            <div class="square black">
           <% end %>
-                 <% if @game.piece_at(square, row) %>
-                  <%= @game.piece_at(square, row).display.html_safe %>
-                  <% end %>
+         
+         
+          <% if @game.piece_at(square, row) %>
+            <%= link_to chess_piece_path(@game.piece_at(square, row).id), id: 'chess-piece' do %>
+            <%= @game.piece_at(square, row).display.html_safe %>
+          <% end %>
+        <% end %>
          </div>
       <% end %>
    </div>
