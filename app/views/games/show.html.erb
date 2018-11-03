@@ -1,20 +1,14 @@
  <script>
     $(function() {
       $( ".chess-piece" ).draggable({ 
-       
-        drag: function( event, ui ) {
+         drag: function( event, ui ) {
           revert: true 
-          
-        }
+         }
       });
 
-       
-      
-      $( ".square" ).droppable({
-
-        hoverClass: "hover",
-        drop: function( event, ui ) {
-          var droppable = ui.droppable
+        $( ".square" ).droppable({
+         drop: function( event, ui ) {
+          
           var col = $(this).parent().children().index($(this));
           var row = $(this).parent().parent().children().index($(this).parent());
           console.log("column: " + col + "row: " + row)
@@ -26,29 +20,34 @@
 
 
 
+
 <h1>Checkmate - Show Games</h1>
+
+<div id="board1" style="width: 400px"></div>
+
+  <script>
+    var board1 = ChessBoard('board1', 'start');
+  </script>
 
 <table class="board">
 
   <% (0..7).each do |row| %>
     <tr class="row">
-      <% (0..7).each do |square| %>
-        
+      <% (0..7).each do |square| %>      
         <% row_even = row % 2 == 0 %>
         <% square_even = square % 2 == 0 %>
           <% if row_even == square_even %>
-            <td class="square white">
-              
+            <td class="square white">      
           <% else %>
             <td class="square black">
-             
           <% end %>
          
         
-          <% if @game.piece_at(square, row) %>
-            <%= link_to chess_piece_path(@game.piece_at(square, row).id) do %>
+          <% if @chess_piece = @game.piece_at(square, row) %>
+
+            <%= link_to chess_piece_path(@chess_piece) do %>
             <div class="chess-piece">
-              <%= @game.piece_at(square, row).display.html_safe %>
+              <%= @chess_piece.display.html_safe %>
             </div>
           <% end %>
         <% end %>

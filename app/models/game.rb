@@ -45,10 +45,10 @@ class Game < ApplicationRecord
   
   
   def piece_at(x, y)
-    chess_pieces.where(position_x: x, position_y: y).first
+    self.chess_pieces.find_by(position_x: x, position_y: y)
   end
 
-      
+
 
   
 end

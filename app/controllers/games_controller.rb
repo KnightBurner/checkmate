@@ -15,15 +15,13 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find_by(id: params[:id])
-    
+    @game = Game.includes(:chess_pieces).find_by(id: params[:id])
   end
 
   def update
     @game = Game.find_by(id: params[:id])
 
-    if user_signed_in? && @game
-      @game.update_attributes( black_player_id: current_user.id)
+    if @game&.update_attributes( black_player_id: current_user.id)
       redirect_to game_path(@game)
     else
       redirect_to new_user_session_path, :alert => "Please sign in"
