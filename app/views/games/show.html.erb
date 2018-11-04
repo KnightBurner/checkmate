@@ -8,19 +8,27 @@
         }
       });
 
-       
       
       $( ".square" ).droppable({
-
-        hoverClass: "hover",
         drop: function( event, ui ) {
-          var droppable = ui.droppable
           var col = $(this).parent().children().index($(this));
           var row = $(this).parent().parent().children().index($(this).parent());
-          console.log("column: " + col + "row: " + row)
+            console.log(row, col)
+            var update = $.ajax({
+                          type: 'PATCH',
+                          url: ui.draggable.data('update-url'),
+                          dataType: 'json',
 
+                          data: { chesspiece: { position_x: col, position_y: row} }
+                        });
+            $(".chess-piece").on("drop", update);
+            
+            
         }
+
       });
+
+
     });
   </script>
 
@@ -46,11 +54,12 @@
          
         
           <% if @game.piece_at(square, row) %>
-            <%= link_to chess_piece_path(@game.piece_at(square, row).id) do %>
-            <div class="chess-piece">
+           
+            <div class="chess-piece" data-update-url="<%=chess_piece_path(@game.piece_at(square, row).id)%>">
               <%= @game.piece_at(square, row).display.html_safe %>
+              
             </div>
-          <% end %>
+         
         <% end %>
          </div>
       <% end %>
