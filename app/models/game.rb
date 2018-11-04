@@ -64,4 +64,3 @@ end
     chess_pieces.where(position_x: x, position_y: y).first
   end
 end
-end
