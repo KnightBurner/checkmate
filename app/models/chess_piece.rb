@@ -162,4 +162,8 @@ class ChessPiece < ApplicationRecord
     return ChessPiece.find(piece_id).color != self.color
   end
 
+  # def piece_location
+  #   ChessPiece.type
+  # end
+
 end
