@@ -51,16 +51,24 @@ class Game < ApplicationRecord
   def check?(color)
     king = chess_pieces.find_by(type: 'King', color: color)
     opponents = chess_pieces.find_by(color: color!)
-    
-    opponents.each do |piece|
-      if chess_piece.valid_move?(king.x_position, king.y_position)
-        @chess_piece_causing_check = chess_piece_causing_check
+    opponents.each do |chess_piece|
+      if chess_piece.valid_move?(king.position_x, king.position_y)
+        @chess_piece_causing_check = chess_piece
         return true
-      end
-    false
+        end
+      false
+   end
   end
+  
+  
+  def checkmate?(color)
+    checked_king = chess_pieces.find_by(type: 'King', color: color)
     
+
+    return false unless check?(color)
+    return false if piece
+    Game.transaction do
+      raise ActiveRecord::Rollback
+    end
   end
-
-
 end
