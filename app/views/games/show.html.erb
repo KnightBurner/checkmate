@@ -3,14 +3,17 @@
       $( ".chess-piece" ).draggable({ 
        
         drag: function( event, ui ) {
-          revert: true 
+          revert: "invalid";
+          var revertDuration = $(".chess-piece")
           
         }
       });
 
       
       $( ".square" ).droppable({
+        tolerance: "fit",
         drop: function( event, ui ) {
+
           var col = $(this).parent().children().index($(this));
           var row = $(this).parent().parent().children().index($(this).parent());
             console.log(row, col)
