@@ -167,4 +167,9 @@ class ChessPiece < ApplicationRecord
     occupied_space_id = board[stop[1]][stop[0]]
     return ChessPiece.find(occupied_space_id).color != self.color
   end
+
+  # def piece_location
+  #   ChessPiece.type
+  # end
+
 end

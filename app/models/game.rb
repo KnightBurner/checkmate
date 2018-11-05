@@ -46,4 +46,8 @@ class Game < ApplicationRecord
   def piece_at(x, y)
     chess_pieces.where(position_x: x, position_y: y).first
   end
+
+ 
+
+  
 end
