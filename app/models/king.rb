@@ -8,21 +8,27 @@ class King < ChessPiece
     end
   end
 
-  def move_one_space?(start, stop)
-    if is_vertical_move?
-    elsif is_horizontal_move?
+  def move_one_space?(stop)
+    if is_vertical_move?(stop)
+      (self.position_y - stop[1]).abs == 1
+    elsif is_horizontal_move?(stop)
+      (self.position_x - stop[0]).abs == 1
+    elsif is_diagonal_move?(stop)
+      (self.position_y - stop[1]).abs == 1 && (self.position_x - stop[0]).abs == 1
     else
+      false
     end
-    (start - stop).abs == 1
   end
 
   def valid_move?(board, stop)
     if is_space_occupied?(board, stop)
-      if is_opponent(board, stop)
-        return move_one_space?(start, stop)
+      if is_opponent?(board, stop)
+        move_one_space?(stop)
+      else
+        false
       end
     else
-      return move_one_space(start, stop)
+      move_one_space?(stop)
     end
   end
 
