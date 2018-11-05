@@ -44,21 +44,28 @@ class Game < ApplicationRecord
   end
   scope :available, -> { where(black_player_id: nil).or(where(white_player_id: nil)) }
   
-  
-  
   def check?(color)
     king = chess_pieces.find_by(type: 'King', color: color)
     opponents = chess_pieces.find_by(color: color!)
-    
-    opponents.each do |piece|
-      if chess_piece.valid_move?(king.x_position, king.y_position)
-        @chess_piece_causing_check = chess_piece_causing_check
+    opponents.each do |chess_piece|
+      if chess_piece.valid_move?(king.position_x, king.position_y)
+        @chess_piece_causing_check = chess_piece
         return true
-      end
-    false
+        end
+      false
+   end
   end
+  
+  
+  def checkmate?(color)
+    checked_king = chess_pieces.find_by(type: 'King', color: color)
     
-end
+    return false unless check?(color)
+    return false if piece
+    Game.transaction do
+      raise ActiveRecord::Rollback
+    end
+  end
   
   def piece_at(x, y)
     chess_pieces.where(position_x: x, position_y: y).first
