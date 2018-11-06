@@ -9,7 +9,7 @@ class Knight < ChessPiece
   end
 
   def is_valid_move?(board, stop)
-    (is_horizontal_move?(board, stop) || is_vertical_move?(board, stop)) && (!chess_piece || chess_piece.color != color)
+    (is_horizontal_move?(board, stop) || is_vertical_move?(board, stop)) && (is_space_occupied?(board, stop) && (is_opponent?(board, stop))
   end
 
   private
