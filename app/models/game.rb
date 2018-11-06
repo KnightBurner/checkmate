@@ -47,7 +47,7 @@ class Game < ApplicationRecord
     chess_pieces.where(position_x: x, position_y: y).first
   end
 
- 
+      
 
   
 end
