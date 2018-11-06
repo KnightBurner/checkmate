@@ -16,7 +16,7 @@ class ChessPiece < ApplicationRecord
  
   # DESTROYS A PIECE ON THE BOARD
   def capture_piece!(board, stop)
-    board[stop[1]][stop[0]] == nil   
+    board[stop[1]][stop[0]] = nil   
   end
 
   # CHECKS TO SEE IF THE DESIRED SPACE IS OCCUPIED BY ANOTHER PIECE
