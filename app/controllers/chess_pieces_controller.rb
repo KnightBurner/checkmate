@@ -14,7 +14,7 @@ class ChessPiecesController < ApplicationController
     @chesspiece = ChessPiece.find_by(id: params[:id])
     @game = @chesspiece.game
     @chesspiece.update_attributes(chesspiece_params)
-    redirect_to game_path(@chesspiece.game)
+    render plain: 'updated!'
   end
 
   def edit

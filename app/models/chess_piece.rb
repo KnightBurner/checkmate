@@ -2,6 +2,34 @@ class ChessPiece < ApplicationRecord
 
   belongs_to :game
 
+  # UPDATES POSITION IF IT'S EMPTY OR CAN BE CAPTURED OR RAISES ERROR IF IS OWN PLAYER
+  def move_to!(stop)
+    if !is_space_occupied?(board, stop)
+          update_attributes(self.position_x = stop[0], self.position_y = stop[1])
+    elsif is_space_occupied?(board, stop) && is_opponent?(board, stop)   
+          update_attributes(self.position_x = stop[0], self.position_y = stop[1])
+          capture_piece!(board, stop)
+    else 
+      raise ArgumentError.new('you cannot capture your own player')
+    end
+  end
+ 
+  # DESTROYS A PIECE ON THE BOARD
+  def capture_piece!(board, stop)
+    board[stop[1]][stop[0]] = nil   
+  end
+
+  # CHECKS TO SEE IF THE DESIRED SPACE IS OCCUPIED BY ANOTHER PIECE
+  def is_space_occupied?(board, stop)
+    return board[stop[1]][stop[0]] != nil
+  end
+ 
+# CHECKS TO SEE IF THE SELECTED PIECE IS THE OPPONENT
+  def is_opponent?(board, stop)
+    piece_id = board[stop[1]][stop[0]]
+    return ChessPiece.find(piece_id).color != self.color
+  end
+
 # CHECKS WHICH DIRECTION
   def is_vertical_move?(stop)
     self.position_x == stop[0]
@@ -52,7 +80,7 @@ class ChessPiece < ApplicationRecord
 
 # CREATES AN ARRAY OF THE SPACES IN BETWEEN THE MOVEMENT
   def spaces_between(start, stop)
-    (start...stop).to_a.drop(1)
+    return (start...stop).to_a.drop(1)
   end
 
 # DETECTS OBSTRUCTION BASED ON THE MOVE DIRECTION
@@ -115,34 +143,40 @@ class ChessPiece < ApplicationRecord
   def is_vertically_obstructed?(board, stop)
     if is_vertical_move?(stop)
       if is_moving_up?(stop)
-        return detect_vertical_up_obstruction(board, stop)
+        return detect_vertical_up_obstruction(board, stop) != nil
       else
-        return detect_vertical_down_obstruction(board, stop)
+        return detect_vertical_down_obstruction(board, stop) != nil
       end
+    else
+      return false
     end
   end
 
   def is_horizontally_obstructed?(board, stop)
     if is_horizontal_move?(stop)
       if is_moving_left?(stop)
-        return detect_horizontal_left_obstruction(board, stop)
+        return detect_horizontal_left_obstruction(board, stop) != nil
       else
-        return detect_horizontal_right_obstruction(board, stop)
+        return detect_horizontal_right_obstruction(board, stop) != nil
       end
+    else
+      return false
     end
   end
 
   def is_diagonally_obstructed?(board, stop)
     if is_diagonal_move?(stop)
       if is_moving_up_right?(stop)
-        return detect_diagonal_up_right_obstruction(board, stop)
+        return detect_diagonal_up_right_obstruction(board, stop) != nil
       elsif is_moving_up_left?(stop)
-        return detect_diagonal_up_left_obstruction(board, stop)
+        return detect_diagonal_up_left_obstruction(board, stop) != nil
       elsif is_moving_down_right?(stop)
-        return detect_diagonal_down_right_obstruction(board, stop)
+        return detect_diagonal_down_right_obstruction(board, stop) != nil
       else
-        return detect_diagonal_down_left_obstruction(board, stop)
+        return detect_diagonal_down_left_obstruction(board, stop) != nil
       end
+    else
+      return false
     end
   end
   
@@ -150,20 +184,4 @@ class ChessPiece < ApplicationRecord
   def is_obstructed?(board, stop)
     return is_vertically_obstructed?(board, stop) || is_horizontally_obstructed?(board, stop) || is_diagonally_obstructed?(board, stop)
   end
-
-# CHECKS TO SEE IF THE DESIRED SPACE IS OCCUPIED BY ANOTHER PIECE
-  def is_space_occupied?(board, stop)
-    return board[stop[1]][stop[0]] != nil
-  end
-
-# CHECKS TO SEE IF THE SELECTED PIECE IS THE OPPONENT
-  def is_opponent?(board, stop)
-    piece_id = board[stop[1]][stop[0]]
-    return ChessPiece.find(piece_id).color != self.color
-  end
-
-  # def piece_location
-  #   ChessPiece.type
-  # end
-
 end
