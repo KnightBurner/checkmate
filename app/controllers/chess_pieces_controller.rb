@@ -10,15 +10,17 @@ class ChessPiecesController < ApplicationController
     @game = @chesspiece.game
   end
 
-  def update
-    @chesspiece = ChessPiece.find_by(id: params[:id])
-    @game = @chesspiece.game
-    @chesspiece.update_attributes(chesspiece_params)
-    render plain: 'updated!'
-  end
+  # def update
+  #  @chesspiece = ChessPiece.find_by(id: params[:id])
+  #   @game = @chesspiece.game
+  #   @chesspiece.update_attributes(chesspiece_params)
+  #   render plain: 'updated!'
+  # end
 
-  def edit
-    @chesspiece = ChessPiece.find_by(id: params[:id])
+  def update
+    @chess_piece = ChessPiece.find(params[:id])
+    @chess_piece.move_to!([params[:position_x], params[:position_y]])
+    redirect_to game_path(@chess_piece.game)
   end
 
   private
@@ -27,3 +29,5 @@ class ChessPiecesController < ApplicationController
     params.require(:chesspiece).permit(:position_x, :position_y)
   end
 end
+
+ 

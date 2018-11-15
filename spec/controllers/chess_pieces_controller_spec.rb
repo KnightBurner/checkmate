@@ -9,8 +9,5 @@ RSpec.describe ChessPiecesController, type: :controller do
       get :show, params: { id: game.piece_at(0,0).id }
       expect(response).to have_http_status(:success)
     end
-  end
-
-  
-
+  end  
 end
