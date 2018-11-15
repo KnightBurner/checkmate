@@ -44,7 +44,6 @@ class Game < ApplicationRecord
   end
   scope :available, -> { where(black_player_id: nil).or(where(white_player_id: nil)) }
   
-<<<<<<< HEAD
   def check?(color)
     king = chess_pieces.find_by(type: 'King', color: color)
     opponents = chess_pieces.find_by(color: color!)
@@ -72,13 +71,3 @@ class Game < ApplicationRecord
     chess_pieces.where(position_x: x, position_y: y).first
   end
 end
-=======
-  def piece_at(x, y)
-    chess_pieces.where(position_x: x, position_y: y).first
-  end
-
-      
-
-  
-end
->>>>>>> deda0a629f578438bc336bdefa12258c7fd612d3

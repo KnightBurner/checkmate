@@ -14,6 +14,7 @@ class ChessPiecesController < ApplicationController
     @chesspiece = ChessPiece.find_by(id: params[:id])
     @game = @chesspiece.game
     @chesspiece.update_attributes(chesspiece_params)
+    @chesspiece.check?
     render plain: 'updated!'
   end
 
