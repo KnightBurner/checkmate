@@ -6,7 +6,7 @@ class ChessPiecesController < ApplicationController
   end
 
   def show
-    @chess_piece = ChessPiece.find_by(id: params[:id])
+    @chesspiece = ChessPiece.find_by(id: params[:id])
     @game = @chesspiece.game
   end
 
@@ -18,7 +18,7 @@ class ChessPiecesController < ApplicationController
   # end
 
   def update
-    @chess_piece = Piece.find(params[:id])
+    @chess_piece = ChessPiece.find(params[:id])
     @chess_piece.move_to!([params[:position_x], params[:position_y]])
     redirect_to game_path(@chess_piece.game)
   end
