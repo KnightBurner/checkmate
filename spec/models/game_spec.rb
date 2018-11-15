@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Game, type: :model do
 
+
   describe "games.available" do
     it "should return games that have only one player" do
       game = FactoryBot.create(:game)
