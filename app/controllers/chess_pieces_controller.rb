@@ -6,7 +6,7 @@ class ChessPiecesController < ApplicationController
   end
 
   def show
-    @chesspiece = ChessPiece.find_by(id: params[:id])
+    @chess_piece = ChessPiece.find_by(id: params[:id])
     @game = @chesspiece.game
   end
 
