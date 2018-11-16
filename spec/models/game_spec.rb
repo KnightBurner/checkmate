@@ -148,8 +148,6 @@ RSpec.describe Game, type: :model do
       expect(game.check?).to eq false
     end
   end
-end
-
 
   
   
