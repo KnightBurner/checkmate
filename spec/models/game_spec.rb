@@ -147,7 +147,7 @@ RSpec.describe Game, type: :model do
       game = FactoryBot.create(:game)
       expect(game.check?).to eq false
     end
-  end
+ 
 
   
   
