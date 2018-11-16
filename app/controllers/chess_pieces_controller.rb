@@ -10,14 +10,6 @@ class ChessPiecesController < ApplicationController
     @game = @chesspiece.game
   end
 
-  # def update
-  #  @chesspiece = ChessPiece.find_by(id: params[:id])
-  #   @game = @chesspiece.game
-  #   @chesspiece.update_attributes(chesspiece_params)
-  #   render plain: 'updated!'
-  # end
- 
-
   def update
     @chess_piece = ChessPiece.find(params[:id])
     @chess_piece.move_to!([params[:position_x], params[:position_y]])
@@ -25,8 +17,6 @@ class ChessPiecesController < ApplicationController
       flash[:error] = "You are in check!"
     end
     redirect_to game_path(@chess_piece.game)
-   
-    
   end
 
   private
