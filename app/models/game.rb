@@ -60,15 +60,26 @@ class Game < ApplicationRecord
    end
   end
   
-  
   def checkmate?(color)
     checked_king = chess_pieces.find_by(type: 'King', color: color)
-    
-
     return false unless check?(color)
-    return false if piece
-    Game.transaction do
-      raise ActiveRecord::Rollback
+    pieces = chess_pieces.find_by(color: color)
+    pieces.each do |piece|
+     (0..7).each do |x|
+       (0..7).each do |y|
+         if piece.valid_move?(x, y)
+           Game.transaction do
+             piece.move_to!([x, y])
+             if check?(color) == false
+               raise ActiveRecord::Rollback
+               return false
+             end
+             raise ActiveRecord::Rollback
+          end
+        end
+      end
     end
+  end
+return true
   end
 end
