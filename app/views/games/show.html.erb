@@ -26,27 +26,32 @@
             var nextPlayerTurn = blackPlayerID
           }
           else {
-            var nextPlayerTurn = whitePlayerID
+            nextPlayerTurn = whitePlayerID
           }
                
             
           console.log(ui.draggable.data('player-color'))
           console.log(currentMovingPiece)
           console.log(nextPlayerTurn)
-          var update = $.ajax({
-                        type: 'PATCH',
-                        url: ui.draggable.data('update-url'),
-                        dataType: 'json',
+          // var update = $.ajax({
+          //               type: 'PATCH',
+          //               url: ui.draggable.data('update-url'),
+          //               dataType: 'json',
+          //               data: { chesspiece: { position_x: col, position_y: row} }
+          //             });
 
-                        data: { chesspiece: { position_x: col, position_y: row} }
-                      });
           var changeTurn = $.ajax({
                         type: 'PATCH',
-                        url: ui.data('player-turn-url'),
+                        url: ui.draggable.data('player-turn-url'),
                         dataType: 'json',
-                        data: { player_turn: {}}
-          })
-          $(".chess-piece").on("drop", update);
+                        data: { player_turn: "1" }
+                      });
+          // $(".chess-piece").on("drop", update);
+          // $(".chess-piece").on("drop", function() {
+          //   changeTurn;
+
+          // })
+          $(".chess-piece").on("drop", changeTurn);
         }
       });
     });
@@ -56,8 +61,8 @@
 
 <h1>Checkmate - Show Games</h1>
 
-<span>White Rook Player ID: <%= @game.piece_at(0,0).player_id%> </span>
 <span>White Player ID:  <%= @game.white_player_id %> </span>
+<span>Player turn: <%= @game.player_turn %> </span>
 <table class="board">
 
   <% (0..7).each do |row| %>
@@ -71,7 +76,7 @@
             <td class="square black">
           <% end %>
           <% if @game.piece_at(square, row) %>
-            <div class="chess-piece" data-update-url="<%=chess_piece_path(@game.piece_at(square, row).id)%>" data-player-color= "<%=@game.piece_at(square, row).color%>" data-current-player-turn="<%=@game.player_turn %>" data-black-player-id="<%=@game.black_player_id%>" data-white-player-id= "<%=@game.white_player_id %>" data-current-moving-piece="<%=@game.piece_at(square, row).player_id%>">
+            <div class="chess-piece" data-update-url="<%=chess_piece_path(@game.piece_at(square, row).id)%>" data-player-color= "<%=@game.piece_at(square, row).color%>" data-current-player-turn="<%=@game.player_turn %>" data-black-player-id="<%=@game.black_player_id%>" data-white-player-id= "<%=@game.white_player_id %>" data-current-moving-piece="<%=@game.piece_at(square, row).player_id%>" data-player-turn-url="<%= game_path(@game)%>">
               <%= @game.piece_at(square, row).display.html_safe %>
             </div>
         <% end %>

@@ -31,7 +31,11 @@ class GamesController < ApplicationController
     else
       redirect_to new_user_session_path
     end
+
+    @game.update_attributes(player_turn_params)
   end
+
+
 
   private
 
@@ -41,5 +45,9 @@ class GamesController < ApplicationController
 
   def game_params
     params.permit(:black_player_id, :player_turn, :white_player_id)
+  end
+
+  def player_turn_params
+    params.permit(:player_turn)
   end
 end
