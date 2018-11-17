@@ -1,57 +1,41 @@
  <script>
-
-    
     $(function() {
-      
         $( ".chess-piece" ).draggable({ 
           drag: function( event, ui ) {
-                   
           }
         });
-
-      
       $( ".square" ).droppable({
         tolerance: "fit",
         drop: function( event, ui ) {
-
           var col = $(this).parent().children().index($(this));
           var row = $(this).parent().parent().children().index($(this).parent());
-          var currentPlayerTurn = ui.draggable.data('current-player-turn')
           var currentMovingPiece = ui.draggable.data('current-moving-piece')
           var blackPlayerID = ui.draggable.data('black-player-id')
           var whitePlayerID = ui.draggable.data('white-player-id')
-          
           if (currentMovingPiece !=  blackPlayerID ) {
             var nextPlayerTurn = blackPlayerID
           }
           else {
             nextPlayerTurn = whitePlayerID
           }
-               
-            
-          console.log(ui.draggable.data('player-color'))
-          console.log(currentMovingPiece)
-          console.log(nextPlayerTurn)
           var update = $.ajax({
-                        type: 'PATCH',
-                        url: ui.draggable.data('update-url'),
-                        dataType: 'json',
-                        data: { chesspiece: { position_x: col, position_y: row} }
-                      });
-
+            type: 'PATCH',
+            url: ui.draggable.data('update-url'),
+            dataType: 'json',
+            data: { chesspiece: { position_x: col, position_y: row} }
+          });
           var changeTurn = $.ajax({
-                        type: 'PATCH',
-                        url: ui.draggable.data('player-turn-url'),
-                        dataType: 'json',
-                        data: { player_turn: nextPlayerTurn }
-                      });
+            type: 'PATCH',
+            url: ui.draggable.data('player-turn-url'),
+            dataType: 'json',
+            data: { player_turn: nextPlayerTurn }
+          });
           $(".chess-piece").on("drop", update);
           $(".chess-piece").on("drop", changeTurn);
         }
       });
     });
   </script>
-
 
 
 <h1>Checkmate - Show Games</h1>
