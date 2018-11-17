@@ -138,9 +138,9 @@ RSpec.describe Game, type: :model do
     it "should return true if the game is in check"
       game = FactoryBot.create(:game)
       game.chess_pieces.destroy_all
-      King.create(position_x: 0, position_y: 7, color: black, game_id: game.id)
-      King.create(position_x: 0, position_y: 5, color: white, game_id: game.id)
-      Rook.create(position_x: 2, position_y: 7, color: white, game_id: game.id)
+      King.create(position_x: 0, position_y: 7, color: 'black', game_id: game.id)
+      King.create(position_x: 0, position_y: 5, color: 'white', game_id: game.id)
+      Rook.create(position_x: 2, position_y: 7, color: 'white', game_id: game.id)
       expect(game.check?).to eq true
     end
     it "should return false if the game is not in check"
