@@ -169,7 +169,7 @@ class ChessPiece < ApplicationRecord
     return ChessPiece.find(occupied_space_id).color != self.color
   end
 
-
+ 
 
 
 end

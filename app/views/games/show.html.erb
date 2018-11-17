@@ -1,4 +1,6 @@
  <script>
+
+    
     $(function() {
       
         $( ".chess-piece" ).draggable({ 
@@ -14,19 +16,37 @@
 
           var col = $(this).parent().children().index($(this));
           var row = $(this).parent().parent().children().index($(this).parent());
-            console.log(row, col)
-            var update = $.ajax({
-                          type: 'PATCH',
-                          url: ui.draggable.data('update-url'),
-                          dataType: 'json',
+          var currentPlayerTurn = ui.draggable.data('current-player-turn')
+          var currentMovingPiece = ui.draggable.data('current-moving-piece')
+          // var currentPlayerColor = ui.draggable.data('player-color')
+          var blackPlayerID = ui.draggable.data('black-player-id')
+          var whitePlayerID = ui.draggable.data('white-player-id')
+          
+          if (currentMovingPiece !=  blackPlayerID ) {
+            var nextPlayerTurn = blackPlayerID
+          }
+          else {
+            var nextPlayerTurn = whitePlayerID
+          }
+               
+            
+          console.log(ui.draggable.data('player-color'))
+          console.log(currentMovingPiece)
+          console.log(nextPlayerTurn)
+          var update = $.ajax({
+                        type: 'PATCH',
+                        url: ui.draggable.data('update-url'),
+                        dataType: 'json',
 
-                          data: { chesspiece: { position_x: col, position_y: row} }
-                        });
-            var playerTurn = $.ajax({
-                          type: 'PATCH',
-                          url: ui.data()
-            })
-            $(".chess-piece").on("drop", update);
+                        data: { chesspiece: { position_x: col, position_y: row} }
+                      });
+          var changeTurn = $.ajax({
+                        type: 'PATCH',
+                        url: ui.data('player-turn-url'),
+                        dataType: 'json',
+                        data: { player_turn: {}}
+          })
+          $(".chess-piece").on("drop", update);
         }
       });
     });
@@ -38,7 +58,7 @@
 
 <span>White Rook Player ID: <%= @game.piece_at(0,0).player_id%> </span>
 <span>White Player ID:  <%= @game.white_player_id %> </span>
-<table class="board" data-player-turn-url="<%=game_path(@game)%>"
+<table class="board">
 
   <% (0..7).each do |row| %>
     <tr class="row">
@@ -46,12 +66,12 @@
         <% row_even = row % 2 == 0 %>
         <% square_even = square % 2 == 0 %>
           <% if row_even == square_even %>
-            <td class="square white">
+            <td class="square white" >
           <% else %>
             <td class="square black">
           <% end %>
           <% if @game.piece_at(square, row) %>
-            <div class="chess-piece" data-update-url="<%=chess_piece_path(@game.piece_at(square, row).id)%>" data-player-id= "<%=@game.piece_at(square, row).player_id%>">
+            <div class="chess-piece" data-update-url="<%=chess_piece_path(@game.piece_at(square, row).id)%>" data-player-color= "<%=@game.piece_at(square, row).color%>" data-current-player-turn="<%=@game.player_turn %>" data-black-player-id="<%=@game.black_player_id%>" data-white-player-id= "<%=@game.white_player_id %>" data-current-moving-piece="<%=@game.piece_at(square, row).player_id%>">
               <%= @game.piece_at(square, row).display.html_safe %>
             </div>
         <% end %>
