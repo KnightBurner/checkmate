@@ -1,11 +1,11 @@
  <script>
     $(function() {
-      $( ".chess-piece" ).draggable({ 
-        drag: function( event, ui ) {
-          revert: "invalid";
-          var revertDuration = $(".chess-piece")        
-        }
-      });
+      
+        $( ".chess-piece" ).draggable({ 
+          drag: function( event, ui ) {
+                   
+          }
+        });
 
       
       $( ".square" ).droppable({
@@ -22,6 +22,10 @@
 
                           data: { chesspiece: { position_x: col, position_y: row} }
                         });
+            var playerTurn = $.ajax({
+                          type: 'PATCH',
+                          url: ui.data()
+            })
             $(".chess-piece").on("drop", update);
         }
       });
@@ -32,7 +36,9 @@
 
 <h1>Checkmate - Show Games</h1>
 
-<table class="board">
+<span>White Rook Player ID: <%= @game.piece_at(0,0).player_id%> </span>
+<span>White Player ID:  <%= @game.white_player_id %> </span>
+<table class="board" data-player-turn-url="<%=game_path(@game)%>"
 
   <% (0..7).each do |row| %>
     <tr class="row">
@@ -45,7 +51,7 @@
             <td class="square black">
           <% end %>
           <% if @game.piece_at(square, row) %>
-            <div class="chess-piece" data-update-url="<%=chess_piece_path(@game.piece_at(square, row).id)%>">
+            <div class="chess-piece" data-update-url="<%=chess_piece_path(@game.piece_at(square, row).id)%>" data-player-id= "<%=@game.piece_at(square, row).player_id%>">
               <%= @game.piece_at(square, row).display.html_safe %>
             </div>
         <% end %>

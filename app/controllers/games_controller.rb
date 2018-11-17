@@ -8,10 +8,13 @@ class GamesController < ApplicationController
 
   def new
      @game = Game.new
+
    end
 
   def create 
-    @game = Game.create(game_params) 
+    game = Game.create(game_params)
+    game.update_attributes(white_player_id: current_user.id, player_turn: current_user.id)
+    redirect_to game_path(game)
   end
 
   def show
@@ -32,7 +35,11 @@ class GamesController < ApplicationController
 
   private
 
+  def current_user_id
+    current_user_id ||= current_user.id
+  end
+
   def game_params
-    params.require(:game).permit(:black_player_id, :player_turn, :white_player_id)
+    params.permit(:black_player_id, :player_turn, :white_player_id)
   end
 end

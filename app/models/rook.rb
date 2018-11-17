@@ -1,4 +1,5 @@
 class Rook < ChessPiece
+  
   def display
     if color == "black"
       return "&#9820;"

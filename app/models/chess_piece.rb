@@ -1,5 +1,6 @@
 class ChessPiece < ApplicationRecord
 
+
   belongs_to :game
 
 # CHECKS WHICH DIRECTION
@@ -168,8 +169,7 @@ class ChessPiece < ApplicationRecord
     return ChessPiece.find(occupied_space_id).color != self.color
   end
 
-  # def piece_location
-  #   ChessPiece.type
-  # end
+
+
 
 end
