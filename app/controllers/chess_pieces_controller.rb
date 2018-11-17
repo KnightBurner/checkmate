@@ -9,7 +9,7 @@ class ChessPiecesController < ApplicationController
     @chesspiece = ChessPiece.find_by(id: params[:id])
     @game = @chesspiece.game
   end
-
+  
   def update
     @chess_piece = ChessPiece.find(params[:id])
     @chess_piece.move_to!([params[:position_x], params[:position_y]])
@@ -26,4 +26,3 @@ class ChessPiecesController < ApplicationController
   end
 end
 
- 
